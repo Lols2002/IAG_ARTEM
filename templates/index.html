@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask a Question</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        body {
+            background-image: url(static/design_plateform.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        #chatling-inline-bot {
+            width: 50%;  
+            height: 400px;  
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            top: 50%; 
+            transform: translateX(-50%);  
+            z-index: 1000;  
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #pdf-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #b5bf27;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        #pdf-button:hover {
+            background-color: #b7a60c;
+        }
+
+        #pdf-modal {
+            display: none;
+            position: fixed;
+            z-index: 1200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        #pdf-container {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 1000px;
+            position: relative;
+        }
+
+        #close-pdf {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #pdf-container {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 10px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 1000px;
+            position: relative;
+            border-radius: 15px; /* Added rounded edges to the container */
+            overflow: hidden; /* Ensures the iframe respects the container's border-radius */
+        }
+
+        #pdf-viewer {
+            border-radius: 10px; /* Added rounded edges to the iframe itself */
+            border: none; /* Remove any default iframe borders */
+        }
+
+        #close-pdf:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body style="background-image: url('/static/design_plateform.jpg');">
+    <script> window.chtlConfig = { chatbotId: "4744437977", display: "page_inline" } </script>
+    <div id="chatling-inline-bot"></div>
+    <script async data-id="4744437977" data-display="page_inline" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+
+    <!-- PDF Button -->
+    <button id="pdf-button">Besoin d'aide?</button>
+    
+
+
+    <!-- PDF Modal -->
+    <div id="pdf-modal">
+        <div id="pdf-container">
+            <span id="close-pdf">&times;</span>
+            <iframe id="pdf-viewer" src="/static/test.pdf" width="100%" height="600px"></iframe>
+            
+        </div>
+    </div>
+
+    <script>
+        // PDF Modal Functionality
+        const pdfButton = document.getElementById('pdf-button');
+        const pdfModal = document.getElementById('pdf-modal');
+        const closePdf = document.getElementById('close-pdf');
+        const pdfViewer = document.getElementById('pdf-viewer');
+
+        // Set PDF source (replace with your actual PDF path)
+        pdfViewer.setAttribute('data', '/static/your-document.pdf');
+
+        // Open PDF Modal
+        pdfButton.addEventListener('click', () => {
+            pdfModal.style.display = 'block';
+        });
+
+        // Close PDF Modal
+        closePdf.addEventListener('click', () => {
+            pdfModal.style.display = 'none';
+        });
+
+        // Close modal if clicked outside the content
+        window.addEventListener('click', (event) => {
+            if (event.target === pdfModal) {
+                pdfModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
